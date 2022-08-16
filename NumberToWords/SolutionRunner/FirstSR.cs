@@ -34,9 +34,9 @@ namespace NumberToWords.SolutionRunner
             {
                 return ntwSolution.NumberToWords(num);
             }
-            catch
+            catch(Exception ex)
             {
-                return "Something wrong happening. Please restart the apps.";
+                return $"Error message: {ex.Message}";
             }
         }
     }
