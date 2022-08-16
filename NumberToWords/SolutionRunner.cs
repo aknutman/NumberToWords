@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NumberToWords.Solutions;
 
-namespace NumberToWords.Solutions
+namespace NumberToWords
 {
     internal class SolutionRunner
     {
@@ -17,7 +18,7 @@ namespace NumberToWords.Solutions
 
         public string getResult(long num)
         {
-            return this.ntwSolution.NumberToWords(num);
+            return ntwSolution.NumberToWords(num);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using NumberToWords.Solutions;
+﻿using NumberToWords;
+using NumberToWords.Solutions;
 
 Console.WriteLine("Input number below:");
 
