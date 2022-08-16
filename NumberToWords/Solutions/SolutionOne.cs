@@ -8,6 +8,11 @@ namespace NumberToWords.Solutions
 {
     internal class SolutionOne : ISolution
     {
+        /*
+         * This class responsible for this particular algorithm only
+         * Accept string input, convert to number, convert number to words, and return the words string
+         */
+
         public string NumberToWords(string inputValue)
         {
             string result = "";
