@@ -8,42 +8,57 @@ namespace NumberToWords.Solutions
 {
     internal class SolutionOne : ISolution
     {
-        public string NumberToWords(long num)
+        public string NumberToWords(string inputValue)
         {
-            long tn = num / 1000000000000;
-            long bn = (num / 1000000000) % 1000;
-            long mn = (num / 1000000) % 1000;
-            long th = (num / 1000) % 1000;
-            long hd = num % 1000;
-
             string result = "";
 
-            if ((tn + bn + mn + th + hd) == 0)
+            try
             {
-                result = $"{result}Zero";
+                if (Int64.TryParse(inputValue, out long num))
+                {
+                    long tn = num / 1000000000000;
+                    long bn = (num / 1000000000) % 1000;
+                    long mn = (num / 1000000) % 1000;
+                    long th = (num / 1000) % 1000;
+                    long hd = num % 1000;
+
+                    if ((tn + bn + mn + th + hd) == 0)
+                    {
+                        result = $"{result}Zero";
+                    }
+                    if (tn > 0)
+                    {
+                        result = $"{result}{Words(tn)}Trillion ";
+                    }
+                    if (bn > 0)
+                    {
+                        result = $"{result}{Words(bn)}Billion ";
+                    }
+                    if (mn > 0)
+                    {
+                        result = $"{result}{Words(mn)}Million ";
+                    }
+                    if (th > 0)
+                    {
+                        result = $"{result}{Words(th)}Thousand ";
+                    }
+                    if (hd > 0)
+                    {
+                        result = $"{result}{Words(hd)}";
+                    }
+                }
+                else
+                {
+                    result = "Input is not a number!";
+                }
             }
-            if (tn > 0)
+            catch
             {
-                result = $"{result}{Words(tn)}Trillion ";
-            }
-            if (bn > 0)
-            {
-                result = $"{result}{Words(bn)}Billion ";
-            }
-            if (mn > 0)
-            {
-                result = $"{result}{Words(mn)}Million ";
-            }
-            if (th > 0)
-            {
-                result = $"{result}{Words(th)}Thousand ";
-            }
-            if (hd > 0)
-            {
-                result = $"{result}{Words(hd)}";
+                result = "Something wrong happened. Please restart the apps!";
             }
 
             return result;
+
         }
 
         private static string Words(long num)

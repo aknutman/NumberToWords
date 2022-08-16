@@ -8,6 +8,6 @@ namespace NumberToWords.Solutions
 {
     internal interface ISolution
     {
-        string NumberToWords(long num);
+        string NumberToWords(string num);
     }
 }

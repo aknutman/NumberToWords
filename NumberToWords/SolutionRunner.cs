@@ -16,7 +16,7 @@ namespace NumberToWords
             this.ntwSolution = ntwSolution;
         }
 
-        public string getResult(long num)
+        public string getResult(string num)
         {
             return ntwSolution.NumberToWords(num);
         }

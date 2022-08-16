@@ -3,16 +3,13 @@ using NumberToWords.Solutions;
 
 Console.WriteLine("Input number below:");
 
-string s;
+string? s;
 while ((s = Console.ReadLine()) != null)
 {
-    if (Int64.TryParse(s, out long j))
-    {
-        string result = "";
+    string result = "";
 
-        SolutionRunner sr = new SolutionRunner(new SolutionOne());
-        result = sr.getResult(j);
+    SolutionRunner sr = new SolutionRunner(new SolutionOne());
+    result = sr.getResult(s);
 
-        Console.WriteLine($"{result}");
-    }
+    Console.WriteLine($"{result}");
 }
