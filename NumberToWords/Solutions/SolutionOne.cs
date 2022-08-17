@@ -10,12 +10,12 @@ namespace NumberToWords.Solutions
          */
 
         private static string formatMessage = @"
-            ==========================================
-            * Accepted format is 123.45
-            * Number can be up to a Quintillion
-            * Accept 2 digit decimal only
-            ==========================================
-            ";
+==========================================
+* Accepted format is 123.45
+* Number can be up to a Quintillion
+* Accept 2 digit decimal only
+==========================================
+";
 
         public string ConvertNumberToWords(string inputValue)
         {
