@@ -1,4 +1,5 @@
-﻿using NumberToWords.ISolutions;
+﻿using NumberToWords.Helpers;
+using NumberToWords.ISolutions;
 
 namespace NumberToWords.Solutions
 {
@@ -8,14 +9,6 @@ namespace NumberToWords.Solutions
          * This class responsible for this particular algorithm only
          * Accept string input, convert to number, convert number to words, and return the words string
          */
-
-        private const string formatMessage = @"
-==========================================
-* Accepted format is 123.45
-* Number can be up to a Quintillion
-* Accept 2 digit decimal only
-==========================================
-";
 
         public string ConvertNumberToWords(string inputValue)
         {
@@ -32,77 +25,84 @@ namespace NumberToWords.Solutions
 
         private static string[] ValidateInputString(string inputString)
         {
-            string[] result= inputString.Split('.'); ;
+            if(inputString.Length == 0)
+            {
+                throw new Exception(ErrorMessagesEnum.shouldNotBeEmpty);
+            }
+
+            string[] result = inputString.Split('.'); ;
 
             if (!inputString.Contains('.'))
             {
-                throw new Exception("Only accept dot in decimal separator.\n" + formatMessage);
+                throw new Exception(ErrorMessagesEnum.useDotOnly);
             }
 
             if (result.Length > 2)
             {
-                throw new Exception("Too much dot there...:P\n" + formatMessage);
+                throw new Exception(ErrorMessagesEnum.tooMuchDot);
             }
 
             if (result[1].Length != 2)
             {
-                throw new Exception("Only accept 2 digit decimal only\n" + formatMessage);
+                throw new Exception(ErrorMessagesEnum.twoDecimalOnly);
+            }
+
+            foreach (string item in result)
+            {
+                if (!UInt64.TryParse(item, out ulong itemNum))
+                {
+                    throw new Exception($"\"{item}\" {ErrorMessagesEnum.invalidNumber}");
+                }
             }
 
             return result;
         }
 
-        private static string SeparateIntoThousandBased(string inputValue)
+        private static string SeparateIntoThousandBased(string numString)
         {
             string result = "";
 
-            if (UInt64.TryParse(inputValue, out ulong num))
-            {
-                int qn = Convert.ToInt32((num / 1000000000000000000) % 1000);
-                int qd = Convert.ToInt32((num / 1000000000000000) % 1000);
-                int tn = Convert.ToInt32((num / 1000000000000) % 1000);
-                int bn = Convert.ToInt32((num / 1000000000) % 1000);
-                int mn = Convert.ToInt32((num / 1000000) % 1000);
-                int th = Convert.ToInt32((num / 1000) % 1000);
-                int hd = Convert.ToInt32(num % 1000);
+            ulong num = Convert.ToUInt64(numString);
 
-                if ((qn + qd + tn + bn + mn + th + hd) == 0)
-                {
-                    result = $"{result}Zero ";
-                }
-                if (qn > 0)
-                {
-                    result = $"{result}{ConvertNumberIntoWords(qn)}Quintillion, ";
-                }
-                if (qd > 0)
-                {
-                    result = $"{result}{ConvertNumberIntoWords(qd)}Quadrillion, ";
-                }
-                if (tn > 0)
-                {
-                    result = $"{result}{ConvertNumberIntoWords(tn)}Trillion, ";
-                }
-                if (bn > 0)
-                {
-                    result = $"{result}{ConvertNumberIntoWords(bn)}Billion, ";
-                }
-                if (mn > 0)
-                {
-                    result = $"{result}{ConvertNumberIntoWords(mn)}Million, ";
-                }
-                if (th > 0)
-                {
-                    result = $"{result}{ConvertNumberIntoWords(th)}Thousand, ";
-                }
-                if (hd > 0)
-                {
-                    result = $"{result}{ConvertNumberIntoWords(hd)}";
-                }
-            }
-            else
+            int qn = Convert.ToInt32((num / 1000000000000000000) % 1000);
+            int qd = Convert.ToInt32((num / 1000000000000000) % 1000);
+            int tn = Convert.ToInt32((num / 1000000000000) % 1000);
+            int bn = Convert.ToInt32((num / 1000000000) % 1000);
+            int mn = Convert.ToInt32((num / 1000000) % 1000);
+            int th = Convert.ToInt32((num / 1000) % 1000);
+            int hd = Convert.ToInt32(num % 1000);
+
+            if ((qn + qd + tn + bn + mn + th + hd) == 0)
             {
-                result = "Input is not a number, negative number, or being too big!\n" + formatMessage;
-                throw new Exception(result);
+                result = $"{result}Zero ";
+            }
+            if (qn > 0)
+            {
+                result = $"{result}{ConvertNumberIntoWords(qn)}Quintillion, ";
+            }
+            if (qd > 0)
+            {
+                result = $"{result}{ConvertNumberIntoWords(qd)}Quadrillion, ";
+            }
+            if (tn > 0)
+            {
+                result = $"{result}{ConvertNumberIntoWords(tn)}Trillion, ";
+            }
+            if (bn > 0)
+            {
+                result = $"{result}{ConvertNumberIntoWords(bn)}Billion, ";
+            }
+            if (mn > 0)
+            {
+                result = $"{result}{ConvertNumberIntoWords(mn)}Million, ";
+            }
+            if (th > 0)
+            {
+                result = $"{result}{ConvertNumberIntoWords(th)}Thousand, ";
+            }
+            if (hd > 0)
+            {
+                result = $"{result}{ConvertNumberIntoWords(hd)}";
             }
 
             return result;
@@ -117,10 +117,10 @@ namespace NumberToWords.Solutions
                 "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
                 "Sixteen", "Seventeen", "Eighteen", "Nineteen"
             };
-            string[] tens = { 
-                "", 
-                "", "Twenty", "Thirty", "Forty", 
-                "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" 
+            string[] tens = {
+                "",
+                "", "Twenty", "Thirty", "Forty",
+                "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"
             };
 
             string result = "";
