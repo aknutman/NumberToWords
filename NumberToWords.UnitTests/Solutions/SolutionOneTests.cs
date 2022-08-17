@@ -56,5 +56,15 @@ namespace NumberToWords.UnitTests.Solutions
 
             StringAssert.Contains(ex.Message, ErrorMessagesEnum.invalidNumber);
         }
+
+        [TestMethod]
+        public void ConvertNumberToWords_ValidInput_ReturnNumbersWords()
+        {
+            SolutionOne solOne = new();
+
+            string result = solOne.ConvertNumberToWords("1234567890987654.23");
+
+            Assert.AreEqual(result, "ONE QUADRILLION, TWO HUNDRED AND THIRTY-FOUR TRILLION, FIVE HUNDRED AND SIXTY-SEVEN BILLION, EIGHT HUNDRED AND NINETY MILLION, NINE HUNDRED AND EIGHTY-SEVEN THOUSAND, SIX HUNDRED AND FIFTY-FOUR DOLLARS AND TWENTY-THREE CENTS");
+        }
     }
 }
