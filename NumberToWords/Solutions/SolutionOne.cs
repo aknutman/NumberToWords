@@ -9,7 +9,7 @@ namespace NumberToWords.Solutions
          * Accept string input, convert to number, convert number to words, and return the words string
          */
 
-        private static string formatMessage = @"
+        private static readonly string formatMessage = @"
 ==========================================
 * Accepted format is 123.45
 * Number can be up to a Quintillion
