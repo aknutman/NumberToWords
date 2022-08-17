@@ -1,6 +1,6 @@
 ﻿namespace NumberToWords.ISolutions
 {
-    internal interface ISolution
+    public interface ISolution
     {
         /*
          * This interface hold the abstraction of any type Problem's Solution

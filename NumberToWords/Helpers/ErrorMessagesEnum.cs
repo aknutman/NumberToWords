@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NumberToWords.Helpers
 {
-    internal static class ErrorMessagesEnum
+    public static class ErrorMessagesEnum
     {
         private const string formatMessage = @"
 ==========================================

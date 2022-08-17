@@ -3,7 +3,7 @@ using NumberToWords.ISolutions;
 
 namespace NumberToWords.Solutions
 {
-    internal class SolutionOne : ISolution
+    public class SolutionOne : ISolution
     {
         /*
          * This class responsible for this particular algorithm only
