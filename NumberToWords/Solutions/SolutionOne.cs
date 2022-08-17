@@ -1,4 +1,6 @@
-﻿namespace NumberToWords.Solutions
+﻿using NumberToWords.ISolutions;
+
+namespace NumberToWords.Solutions
 {
     internal class SolutionOne : ISolution
     {
@@ -7,48 +9,50 @@
          * Accept string input, convert to number, convert number to words, and return the words string
          */
 
-        static string formatMessage = @"
-==========================================
-* Accepted format is 123.45
-* Number can be up to a Quintillion
-* Accept 2 digit decimal only
-==========================================
-";
+        private static string formatMessage = @"
+            ==========================================
+            * Accepted format is 123.45
+            * Number can be up to a Quintillion
+            * Accept 2 digit decimal only
+            ==========================================
+            ";
 
-        public string NumberToWords(string inputValue)
+        public string ConvertNumberToWords(string inputValue)
         {
-            string result = "";
+            string[] inputs = ValidateInputString(inputValue);
 
-            string[] inputs = inputValue.Split('.');
+            var firstPart = SeparateIntoThousandBased(inputs[0]);
+            var secondPart = SeparateIntoThousandBased(inputs[1]);
 
-            if (!inputValue.Contains('.'))
-            {
-                result = "Only accept dot in decimal separator.\n" + formatMessage;
-                throw new Exception(result);
-            }
-
-            if (inputs.Length > 2)
-            {
-                result = "Too much dot there...:P\n" + formatMessage;
-                throw new Exception(result);
-            }
-
-            if (inputs[1].Length != 2)
-            {
-                result = "Only accept 2 digit decimal only\n" + formatMessage;
-                throw new Exception(result);
-            }
-
-            var firstPart = Separation(inputs[0]);
-            var secondPart = Separation(inputs[1]);
-
-            result = $"{firstPart}Dollars And {secondPart}cents";
+            string result = $"{firstPart}Dollars And {secondPart}cents";
 
             return result.ToUpper();
 
         }
 
-        private static string Separation(string inputValue)
+        private static string[] ValidateInputString(string inputString)
+        {
+            string[] result= inputString.Split('.'); ;
+
+            if (!inputString.Contains('.'))
+            {
+                throw new Exception("Only accept dot in decimal separator.\n" + formatMessage);
+            }
+
+            if (result.Length > 2)
+            {
+                throw new Exception("Too much dot there...:P\n" + formatMessage);
+            }
+
+            if (result[1].Length != 2)
+            {
+                throw new Exception("Only accept 2 digit decimal only\n" + formatMessage);
+            }
+
+            return result;
+        }
+
+        private static string SeparateIntoThousandBased(string inputValue)
         {
             string result = "";
 
@@ -68,31 +72,31 @@
                 }
                 if (qn > 0)
                 {
-                    result = $"{result}{Words(qn)}Quintillion, ";
+                    result = $"{result}{ConvertNumberIntoWords(qn)}Quintillion, ";
                 }
                 if (qd > 0)
                 {
-                    result = $"{result}{Words(qd)}Quadrillion, ";
+                    result = $"{result}{ConvertNumberIntoWords(qd)}Quadrillion, ";
                 }
                 if (tn > 0)
                 {
-                    result = $"{result}{Words(tn)}Trillion, ";
+                    result = $"{result}{ConvertNumberIntoWords(tn)}Trillion, ";
                 }
                 if (bn > 0)
                 {
-                    result = $"{result}{Words(bn)}Billion, ";
+                    result = $"{result}{ConvertNumberIntoWords(bn)}Billion, ";
                 }
                 if (mn > 0)
                 {
-                    result = $"{result}{Words(mn)}Million, ";
+                    result = $"{result}{ConvertNumberIntoWords(mn)}Million, ";
                 }
                 if (th > 0)
                 {
-                    result = $"{result}{Words(th)}Thousand, ";
+                    result = $"{result}{ConvertNumberIntoWords(th)}Thousand, ";
                 }
                 if (hd > 0)
                 {
-                    result = $"{result}{Words(hd)}";
+                    result = $"{result}{ConvertNumberIntoWords(hd)}";
                 }
             }
             else
@@ -104,7 +108,7 @@
             return result;
         }
 
-        private static string Words(int num)
+        private static string ConvertNumberIntoWords(int num)
         {
             string[] digits = {
                 "",

@@ -1,4 +1,6 @@
-﻿namespace NumberToWords.Solutions
+﻿using NumberToWords.ISolutions;
+
+namespace NumberToWords.Solutions
 {
     internal class SolutionTwo : ISolution
     {
@@ -8,7 +10,7 @@
          * And it is used as created object being passed as a parameter of Dependency Injection pattern
          */
 
-        public string NumberToWords(string num)
+        public string ConvertNumberToWords(string num)
         {
             return "Solution two is not available yet.. Cheers!";
         }

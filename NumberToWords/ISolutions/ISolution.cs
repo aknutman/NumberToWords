@@ -1,4 +1,4 @@
-﻿namespace NumberToWords.Solutions
+﻿namespace NumberToWords.ISolutions
 {
     internal interface ISolution
     {
@@ -9,6 +9,6 @@
          * This way, we can replace the end user, Program class, injector, or unit test to do their own goal
          */
 
-        string NumberToWords(string num);
+        string ConvertNumberToWords(string num);
     }
 }

@@ -1,4 +1,4 @@
-﻿using NumberToWords.Solutions;
+﻿using NumberToWords.ISolutions;
 
 namespace NumberToWords.SolutionRunner
 {
@@ -16,7 +16,7 @@ namespace NumberToWords.SolutionRunner
             * 
             * This runner class will definitely accept the various type of available algorithm provided by the class caller, Program class, injector, etc
          */
-        private ISolution ntwSolution;
+        private readonly ISolution ntwSolution;
 
         public FirstSR(ISolution ntwSolution)
         {
@@ -27,7 +27,7 @@ namespace NumberToWords.SolutionRunner
         {
             try
             {
-                return ntwSolution.NumberToWords(num);
+                return ntwSolution.ConvertNumberToWords(num);
             }
             catch(Exception ex)
             {
