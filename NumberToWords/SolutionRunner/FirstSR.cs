@@ -21,7 +21,7 @@ namespace NumberToWords.SolutionRunner
             * 
             * This runner class will definitely accept the various type of available algorithm provided by the class caller, Program class, injector, etc
          */
-        public ISolution ntwSolution;
+        private ISolution ntwSolution;
 
         public FirstSR(ISolution ntwSolution)
         {
